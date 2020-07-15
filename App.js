@@ -1,30 +1,53 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import Flexes from './components/Flexes';
 
 export default function App() {
-  return (
-    <View style={{padding: 50}}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-            <TextInput placeholder="Course Goal" 
-                style={{borderColor: 'black', borderWidth: 1, padding: 10, width: '80%'}}/>
-            <Button title="ADD" />
-        </View>
+    const [enteredGoal, setEnteredGoal] = useState('');
 
-        <View>
-            <Flexes />
-        </View>
+    const goalInputHandler = (text) => {
+        setEnteredGoal(text);
+    };
 
-    </View>
-  );
+    const addGoalHandler = () => {
+        console.log(enteredGoal);
+    };
+
+    return (
+        <View style={styles.screen}>
+            <View style={styles.inputContainer}>
+                <TextInput 
+                    placeholder="Course Goal"
+                    style={styles.input} 
+                    onChangeText={goalInputHandler}
+                    value={enteredGoal}
+                />
+                <Button title="ADD" onPress={addGoalHandler} />
+            </View>
+
+            <View>
+
+            </View>
+
+        </View>
+    );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+    screen: {
+        padding: 50
+    },
+    inputContainer: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center'
+    },
+    input: {
+        borderColor: 'black', 
+        borderWidth: 1, 
+        padding: 10, 
+        width: '80%'
+    }
+
+});
