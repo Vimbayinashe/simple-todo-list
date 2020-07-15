@@ -5,14 +5,19 @@ import Flexes from './components/Flexes';
 
 export default function App() {
     const [enteredGoal, setEnteredGoal] = useState('');
+    const [courseGoals, setCourseGoals] = useState([]);
 
     const goalInputHandler = (text) => {
         setEnteredGoal(text);
     };
 
     const addGoalHandler = () => {
-        console.log(enteredGoal);
+        // setCourseGoals([...courseGoals, enteredGoal] )
+
+        // syntax gives the guaranteed latest snapshot vs direct declaration (above)
+        setCourseGoals(currentGoals => [...currentGoals, enteredGoal] )
     };
+
 
     return (
         <View style={styles.screen}>
@@ -27,7 +32,7 @@ export default function App() {
             </View>
 
             <View>
-
+                {courseGoals.map((goal)=> <Text key={goal}>{goal}</Text>)}
             </View>
 
         </View>
