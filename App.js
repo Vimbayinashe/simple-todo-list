@@ -1,13 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native';
-import Flexes from './components/Flexes';
+import { StyleSheet, View, Button, FlatList } from 'react-native';
+// import Flexes from './components/Flexes';
 import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
 
 export default function App() {
     const [courseGoals, setCourseGoals] = useState([]);
-
+    const [isAddMode, setIsAddMode] = useState(false);
+    console.log(isAddMode);
 
     const addGoalHandler = (goal) => {
         // setCourseGoals([...courseGoals, enteredGoal] )
@@ -16,7 +16,8 @@ export default function App() {
         setCourseGoals(currentGoals => [...currentGoals,
             { key: Math.random().toString(), value: goal }   
             //rand not best key in pdtn <= sometimes can repeat itself
-        ])
+        ]);
+        setIsAddMode(false);
     };
 
     const removeGoal = (goalId) => {
@@ -28,12 +29,16 @@ export default function App() {
   
     return (
         <View style={styles.screen}>
+
+            <Button title="Add New Goal" onPress={() => setIsAddMode(true)} />
             
             <GoalInput 
                 addGoalHandler={addGoalHandler}
+                visible={isAddMode}
             /> 
 
             <FlatList 
+                // keyExtractor={(item, index) => item.id}
                 data={courseGoals} 
                 renderItem={itemData => (
                 <GoalItem value={itemData.item.value} 
@@ -49,24 +54,6 @@ export default function App() {
 const styles = StyleSheet.create({
     screen: {
         padding: 50
-    },
-    inputContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    input: {
-        borderColor: 'black',
-        borderWidth: 1,
-        padding: 10,
-        width: '80%'
-    },
-    listItem: {
-        padding: 10,
-        marginVertical: 10,
-        backgroundColor: '#ccc',
-        borderColor: 'black',
-        borderWidth: 1
     }
 
 });
