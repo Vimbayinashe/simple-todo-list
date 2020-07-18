@@ -26,6 +26,12 @@ export default function App() {
         })
     }
 
+
+    const closeGoalModal = () => {
+        setIsAddMode(false);
+    }
+
+
   
     return (
         <View style={styles.screen}>
@@ -35,6 +41,7 @@ export default function App() {
             <GoalInput 
                 addGoalHandler={addGoalHandler}
                 visible={isAddMode}
+                closeGoalModal={closeGoalModal}
             /> 
 
             <FlatList 
